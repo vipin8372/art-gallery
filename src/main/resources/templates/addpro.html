@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Add Product Section -->
+    <a class="btn btn-primary" th:href="@{/add-product}">Add Product</a>
+
+
+    <hr/>
+    <h2>Manage Products</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over products and display them -->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category}"></td>
+            <td>
+                <img th:src="${product.image}" alt="Product Image" style="max-width: 100px; max-height: 100px;">
+            </td>
+            <td>
+                <a th:href="@{/edit-product/{id}(id=${product.id})}" class="btn btn-info">Edit</a>
+                <form th:action="@{/delete-product/{id}(id=${product.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Logout Button -->
+    <a th:href="@{/logout}" class="text">Logout</a>
+</div>
+</body>
+</html>

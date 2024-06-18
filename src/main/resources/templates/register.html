@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/log.css}">
+    <style>
+        .message {
+    text-align: center;
+    color: red;
+    font-size: x-small;
+    position: absolute;
+    bottom: 28px;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-html">
+        <h2>Register</h2>
+        <br>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <form th:action="@{/register}" th:object="${user}" method="post">
+                    <div class="group">
+                        <label for="fullname" class="label">Full Name</label>
+                        <input id="fullname" type="text" class="input" name="fullname" autocomplete="off" th:field="*{fullname}" required>
+                    </div>
+                    <div class="group">
+                        <label for="email" class="label">Email</label>
+                        <input id="email" type="email" class="input" name="email" autocomplete="new-email" th:field="*{email}" required>
+                    </div>
+                    <div class="group">
+                        <label for="gender" class="label">Gender</label>
+                        <select id="gender" name="gender" class="input" th:field="*{gender}" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="group">
+                        <label for="role" class="label">Register as:</label>
+                        <select id="role" name="role" class="input" required>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password" name="password" autocomplete="new-password" th:field="*{password}" required>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <button id="signupButton" type="submit" class="signupbtn">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="message">
+            <p th:if="${error}" th:text="${error}"></p>
+        </div>
+        <div class="login-li">
+            <span>Already have an account?</span>
+            <a th:href="@{/login}" href="#">Login</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

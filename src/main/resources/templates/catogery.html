@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/catogery.css}">
+</head>
+<body>
+<br><br>
+<div class="card-container">
+    <h1 class="heading">SHOP BY CATEGORY</h1>
+    <br>
+    <div class="box-container">
+        <div class="box">
+            <img src="images/oilpaint.jpg" alt="">
+            <h3>Oil Paint</h3>
+
+            <a th:href="@{/oilpaint}" class="btn">See More</a>
+        </div>
+        <div class="box">
+            <img src="images/abstract.jpg" alt="">
+            <h3>Spary Paint</h3>
+
+            <a th:href="@{/abstractpaint}" class="btn">See More</a>
+        </div>
+        <div class="box">
+            <img src="images/watercolor.jpeg" alt="">
+            <h3>Watercolor Painting</h3>
+
+            <a  th:href="@{/watercolor}" class="btn">See More</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

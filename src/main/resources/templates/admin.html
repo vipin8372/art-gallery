@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/add-product}">Add Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/orders}">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/users}">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<hr/>
+<div class="container">
+    <h2>Manage Products</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                <img th:src="@{${product.image}}" alt="Product Image" style="max-width: 100px; max-height: 100px;">
+            </td>
+            <td>
+                <a th:href="@{/edit-product/{id}(id=${product.id})}" class="btn btn-info">Edit</a>
+                <form th:action="@{/delete-product/{id}(id=${product.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Orders</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Payment ID</th>
+            <th>Total</th>
+            <th>Address</th>
+            <th>Items</th>
+            <th>Delivery Status</th>
+            <th>Delivery Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over orders and display each order with delivery status and delivery date -->
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.paymentId}"></td>
+            <td th:text="${order.total}"></td>
+            <td>
+                <div th:text="${order.address.name}"></div>
+                <div th:text="${order.address.address}"></div>
+                <div th:text="${order.address.city}"></div>
+                <div th:text="${order.address.state}"></div>
+                <div th:text="${order.address.zip}"></div>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="item : ${order.items}">
+                        <span th:text="${item.product.name}">Product Name</span> - <span th:text="${item.quantity}">Quantity</span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <!-- Form to update delivery status -->
+            <td>
+                <!-- Form to update delivery status -->
+                <!-- Form to update delivery status and delivery date -->
+            <form th:action="@{/admin/update-delivery/{orderId}(orderId=${order.id})}" method="post">
+                <select name="status">
+                    <option value="Pending" th:selected="${order.deliveryStatus == 'Pending'}">Pending</option>
+                    <option value="Shipped" th:selected="${order.deliveryStatus == 'Shipped'}">Shipped</option>
+                    <option value="Delivered" th:selected="${order.deliveryStatus == 'Delivered'}">Delivered</option>
+                </select>
+                <input type="date" name="deliveryDate" th:value="${#dates.format(order.deliveryDate, 'yyyy-MM-dd')}">
+                <button type="submit" class="btn btn-primary">Update Status and Date</button>
+            </form>
+            <form th:action="@{/admin/delete-order/{orderId}(orderId=${order.id})}" method="post">
+                <button type="submit" class="btn btn-danger">Delete Order</button>
+            </form>
+
+
+
+        </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

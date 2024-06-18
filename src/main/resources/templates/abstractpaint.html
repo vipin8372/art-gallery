@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oil Paint</title>
+    <style>
+        .card .box-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card .box-container .box {
+            border: .1rem solid rgba(0, 0, 0, .3);
+            border-radius: .5rem;
+            text-align: center;
+            padding: 1rem;
+            flex: 1 1 300px; /* Fixed width */
+            max-width: 300px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Ensures uniform box height */
+        }
+
+        .card .box-container .box img {
+            width: 150px; /* Increase the width */
+            height: 150px; /* Increase the height */
+            object-fit: cover;
+            margin: 0 auto; /* Center the image horizontally */
+            display: block;
+        }
+
+        .card .box-container .box h3 {
+            font-size: 2rem; /* Adjusted font size */
+            color: var(--black);
+            margin: 0.5rem 0;
+        }
+
+        .card .box-container .box p {
+            font-size: 1rem; /* Adjusted font size */
+            color: #666;
+            padding: .5rem 0;
+            margin: 0.5rem 0;
+        }
+
+        .card .box-container .box .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #ab5e35;
+            color: #0c0303;
+            padding: .8rem 3rem;
+            font-size: 1.7rem;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .card .box-container .box .btn:hover {
+            background: rgb(141, 118, 73);
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--black);
+        }
+
+        .heading span {
+            color: #1bce66;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1 class="heading">Abstract Paintings</h1>
+    <br>
+    <div class="box-container">
+        <div th:each="product : ${products}">
+            <div class="box">
+                <img th:src="@{${product.image}}" alt="Product Image">
+                <h3 th:text="${product.name}"></h3>
+                <p th:text="${product.description}"></p>
+                <p th:text="'Price: Rs.' + ${product.price}"></p>
+
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}" />
+                    <button type="submit" class="btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .empty-message {
+            text-align: center;
+            margin-top: 50px;
+            color: #999;
+        }
+
+        .update-form input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .update-form input[type="text"] {
+            padding: 8px 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Your Orders</h1>
+<div th:if="${userOrders.empty}" class="empty-message">
+    <p>No orders found.</p>
+</div>
+<div th:if="${not userOrders.empty}">
+    <table>
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Address</th>
+            <th>Payment ID</th>
+            <th>Total</th>
+            <th>Delivary Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${userOrders}">
+            <td th:text="${order.id}"></td>
+            <td>
+                <div th:text="${order.address.name}"></div>
+                <div th:text="${order.address.address}"></div>
+                <div th:text="${order.address.city}"></div>
+                <div th:text="${order.address.state}"></div>
+                <div th:text="${order.address.zip}"></div>
+            </td>
+            <td th:text="${order.paymentId}"></td>
+            <td th:text="${order.total}"></td>
+            <td th:text="${#dates.format(order.deliveryDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${order.deliveryStatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

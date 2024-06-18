@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/cartstyle.css}">
+<body>
+<header id="title">
+    <h1>Cart</h1>
+</header>
+<div id="page">
+    <table id="cart" class="table table-striped">
+        <thead>
+        <tr>
+            <th class="first">Photo</th>
+            <th class="second">Qty</th>
+            <th class="third">Product</th>
+            <th class="fourth">Amount</th>
+            <th class="fifth">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="productitm" th:each="item : ${cart.items}">
+            <td>
+                <img th:src="@{${item.product.image}}" alt="Product Image" style="max-width: 100px; max-height: 100px;">
+            </td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.product.price * item.quantity}"></td>
+            <td>
+                <form th:action="@{/cart/remove}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}"/>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            </td>
+        </tr>
+        <tr class="totalprice">
+            <td class="light">Total:</td>
+            <td colspan="2">&nbsp;</td>
+            <td class="total" th:text="${total}"></td>
+        </tr>
+        <tr class="checkoutrow">
+            <td colspan="5" class="checkout"><a href="/checkout/address" id="submitbtn" class="btn btn-primary">Checkout Now!</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

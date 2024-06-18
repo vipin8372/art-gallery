@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{/css/log.css}">
+    <style>
+        .message {
+    text-align: center;
+    color: red;
+    font-size: x-small;
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-html">
+        <h2>Login</h2>
+        <br>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <form th:action="@{/login}" method="post" autocomplete="off">
+                    <div class="group">
+                        <label for="email" class="label">Email</label>
+                        <input id="email" type="email" class="input" name="email" autocomplete="new-email" required>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password" name="password" autocomplete="new-password" required>
+                    </div>
+
+                    <div class="forgoott-pass">
+                        <a th:href="@{/forgot-password}" class="text">Forgot password?</a><br>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="loginButton" type="submit" class="signupbtn"><span class="text">Login</span></button>
+                    </div>
+                </form>
+                <br>
+                <div class="message">
+                    <p th:if="${error}" th:text="${error}"></p>
+                </div>
+                <div class="login-li">
+                    <span>Already have an account?</span>
+                    <a th:href="@{/register}" href="#">Register</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
